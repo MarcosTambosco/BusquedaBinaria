@@ -1,6 +1,6 @@
 package Test;
 
-// Clase que extiende Thread para realizar la búsqueda binaria en paralelo
+
 class BusquedaBinariaThread extends Thread {
     private int[] arreglo;       // Arreglo sobre el que se realiza la búsqueda
     private int valorBuscado;    // Valor que se desea encontrar
@@ -21,7 +21,7 @@ class BusquedaBinariaThread extends Thread {
         int i = inicio;
         int f = fin;
 
-        // Bucle de busqueda binaria tradicional
+        // Bucle de búsqueda binaria tradicional
         while (i <= f) {
             int medio = (i + f) / 2;
 
@@ -41,7 +41,7 @@ class BusquedaBinariaThread extends Thread {
         }
     }
 
-    // Método para obtener el resultado de la búsqueda al finalizar el hilo
+    //Get
     public int getResultado() {
         return resultado;
     }
@@ -50,12 +50,19 @@ class BusquedaBinariaThread extends Thread {
 // Clase principal donde se prueba la búsqueda binaria concurrente
 public class TestBusquedaBinariaConcurrente {
 
+    
+    private static final int TAM = 1000000; 
+
     public static void main(String[] args) {
        
-        int[] datos = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
-
         
-        int valor = 13;
+        int[] datos = new int[TAM];
+        for (int i = 0; i < TAM; i++) {
+            datos[i] = i + 1;
+        }
+
+       
+        int valor = 5;
 
         // División del arreglo en dos mitades para asignar a cada hilo
         int mitad = datos.length / 2;
@@ -64,7 +71,7 @@ public class TestBusquedaBinariaConcurrente {
         BusquedaBinariaThread hilo1 = new BusquedaBinariaThread(datos, valor, 0, mitad - 1);
         BusquedaBinariaThread hilo2 = new BusquedaBinariaThread(datos, valor, mitad, datos.length - 1);
 
-        // Captura del tiempo de inicio
+       
         long tiempoInicio = System.nanoTime();
 
         // Inicio de ambos hilos
@@ -79,11 +86,11 @@ public class TestBusquedaBinariaConcurrente {
             e.printStackTrace();
         }
 
-        // Captura del tiempo final y cálculo de la duración
+       
         long tiempoFin = System.nanoTime();
         long duracion = tiempoFin - tiempoInicio;
 
-        // Determina cuál de los hilos encontró el valor (si alguno lo encontró)
+        // Determina cuál de los hilos encontró el valor
         int resultado;
         if (hilo1.getResultado() != -1) {
             resultado = hilo1.getResultado();
@@ -91,7 +98,6 @@ public class TestBusquedaBinariaConcurrente {
             resultado = hilo2.getResultado();
         }
 
-        // Muestra por pantalla el resultado de la búsqueda
         if (resultado != -1) {
             System.out.println("✔ Valor " + valor + " encontrado en la posición: " + resultado);
         } else {

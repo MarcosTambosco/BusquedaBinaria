@@ -1,44 +1,67 @@
 package Test;
 
+
 public class TestBusquedaBinariaSecuencial {
 
-    // Método de búsqueda binaria secuencial
-    public static int busquedaBinaria(int[] arreglo, int valorBuscado) {
-        int inicio = 0;
-        int fin = arreglo.length - 1;
-
-        while (inicio <= fin) {
-            int medio = (inicio + fin) / 2;
-
-            if (arreglo[medio] == valorBuscado) {
-                return medio;
-            }
-
-            if (valorBuscado < arreglo[medio]) {
-                fin = medio - 1;
-            } else {
-                inicio = medio + 1;
-            }
-        }
-
-        return -1;
-    }
+    
+    private static final int TAM = 1000000; 
 
     public static void main(String[] args) {
-        int[] datos = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
-        int valor = 13;
 
+        // Creo el arreglo ordenado del 1 hasta TAM
+        int[] datos = new int[TAM];
+        for (int i = 0; i < TAM; i++) {
+            datos[i] = i + 1;
+        }
+
+        
+        int valor = 5;
+
+       
         long tiempoInicio = System.nanoTime();
-        int posicion = busquedaBinaria(datos, valor);
+
+        // Ejecución de la búsqueda binaria de forma secuencial
+        int resultado = busquedaBinaria(datos, valor);
+
+        // Captura del tiempo final y cálculo de la duración
         long tiempoFin = System.nanoTime();
         long duracion = tiempoFin - tiempoInicio;
 
-        if (posicion != -1) {
-            System.out.println("✔ Valor " + valor + " encontrado en la posición: " + posicion);
+        
+        if (resultado != -1) {
+            System.out.println("✔ Valor " + valor + " encontrado en la posición: " + resultado);
         } else {
             System.out.println("✘ Valor " + valor + " no encontrado.");
         }
 
-        System.out.println("⏱ Tiempo de ejecución: " + duracion + " nanosegundos");
+        // Muestra el tiempo de ejecución en nanosegundos
+        System.out.println("⏱ Tiempo de ejecución (secuencial): " + duracion + " nanosegundos");
+    }
+
+    
+    public static int busquedaBinaria(int[] arreglo, int valorBuscado) {
+        int i = 0;
+        int f = arreglo.length - 1;
+
+        // Bucle de búsqueda binaria tradicional
+        while (i <= f) {
+            int medio = (i + f) / 2;
+
+            // Si el elemento en la posición medio es el valor buscado, devuelve el índice
+            if (arreglo[medio] == valorBuscado) {
+                return medio;
+            }
+
+            // Si el valor buscado es menor, buscar en la mitad izquierda
+            if (valorBuscado < arreglo[medio]) {
+                f = medio - 1;
+            } else {
+                // Si es mayor, buscar en la mitad derecha
+                i = medio + 1;
+            }
+        }
+
+        // Si no se encuentra el valor, devuelve -1
+        return -1;
     }
 }

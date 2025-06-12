@@ -23,7 +23,7 @@ class BusquedaBinaria {
 				alto = indiceMedio - 1; // Si el numero buscado es menor, buscar en la mitad izquierda
 			}
 			if (numeroBuscado > numeroEnMedio) {
-				bajo = indiceMedio + 1; // Si el numero buscado es mayor, buscar en la mitad derecha
+				bajo = indiceMedio + 1; // Si el numero buscado es mayor, buscar en la mitad derecha	
 			}
 		}
 
@@ -36,13 +36,13 @@ class BusquedaBinaria {
 		Random random = new Random();
 
 		int numeroABuscar = 25;
-		int tamanioArray = 10;
+		int tamanioArray = 1000;
 
 		// Crear un arreglo elementos con el tamaño enviado por parametro
 		int[] arregloDeNumeros = new int[tamanioArray];
 
 		for (int i = 0; i < arregloDeNumeros.length; i++) {
-			arregloDeNumeros[i] = random.nextInt(51); // Genera números de 0 a 50
+			arregloDeNumeros[i] = random.nextInt(1001); // Genera números de 0 a 50
 		}
 
 		Arrays.sort(arregloDeNumeros); // Ordenar el arreglo para poder aplicar búsqueda binaria

@@ -1,67 +1,42 @@
 package Test;
+// Clase que implementa el algoritmo de busqueda binaria
+class BusquedaBinaria {
 
+    // Metodo privado que realiza la busqueda binaria
+    private static int busquedaBinaria(int[] arregloNumeros, int numeroBuscado) {
+        int bajo = 0;                            // Indice inicial del arreglo
+        int alto = arregloNumeros.length - 1;    // Indice final del arreglo
 
-public class TestBusquedaBinariaSecuencial {
+        // Mientras el índice inicial sea menor o igual al final
+        while (bajo <= alto) {
+            int indiceMedio = (bajo + alto) / 2;           // Calcula el indice del medio
+            int numeroEnMedio = arregloNumeros[indiceMedio]; // Obtiene el numero en la posición media
 
-    
-    private static final int TAM = 1000000; 
-
-    public static void main(String[] args) {
-
-        // Creo el arreglo ordenado del 1 hasta TAM
-        int[] datos = new int[TAM];
-        for (int i = 0; i < TAM; i++) {
-            datos[i] = i + 1;
+            if (numeroBuscado == numeroEnMedio) {
+                return indiceMedio;    // Si el numero buscado es igual al número en el medio devuelve el indice
+            }
+            if (numeroBuscado < numeroEnMedio) {
+                alto = indiceMedio - 1; // Si el numero buscado es menor, buscar en la mitad izquierda
+            }
+            if (numeroBuscado > numeroEnMedio) {
+                bajo = indiceMedio + 1; // Si el numero buscado es mayor, buscar en la mitad derecha
+            }
         }
 
-        
-        int valor = 5;
-
-       
-        long tiempoInicio = System.nanoTime();
-
-        // Ejecución de la búsqueda binaria de forma secuencial
-        int resultado = busquedaBinaria(datos, valor);
-
-        // Captura del tiempo final y cálculo de la duración
-        long tiempoFin = System.nanoTime();
-        long duracion = tiempoFin - tiempoInicio;
-
-        
-        if (resultado != -1) {
-            System.out.println("✔ Valor " + valor + " encontrado en la posición: " + resultado);
-        } else {
-            System.out.println("✘ Valor " + valor + " no encontrado.");
-        }
-
-        // Muestra el tiempo de ejecución en nanosegundos
-        System.out.println("⏱ Tiempo de ejecución (secuencial): " + duracion + " nanosegundos");
+        return -1; // Si no se encuentra el número, devuelve -1
     }
 
-    
-    public static int busquedaBinaria(int[] arreglo, int valorBuscado) {
-        int i = 0;
-        int f = arreglo.length - 1;
+    // Metodo principal que se ejecuta al correr el programa
+    public static void main(String[] args) {
 
-        // Bucle de búsqueda binaria tradicional
-        while (i <= f) {
-            int medio = (i + f) / 2;
+        int[] arregloDeNumeros = {2, 3, 6, 8, 9, 13, 20}; // Arreglo de números ordenados
+        
+        int resultado = busquedaBinaria(arregloDeNumeros, 13); // Busca el número 13
 
-            // Si el elemento en la posición medio es el valor buscado, devuelve el índice
-            if (arreglo[medio] == valorBuscado) {
-                return medio;
-            }
-
-            // Si el valor buscado es menor, buscar en la mitad izquierda
-            if (valorBuscado < arreglo[medio]) {
-                f = medio - 1;
-            } else {
-                // Si es mayor, buscar en la mitad derecha
-                i = medio + 1;
-            }
+        if (resultado != -1) {
+            System.out.println("Numero encontrado en la posición: " + resultado);
+        } else {
+            System.out.println("Numero no encontrado.");
         }
-
-        // Si no se encuentra el valor, devuelve -1
-        return -1;
     }
 }
